@@ -22,4 +22,57 @@ Include the JavaScript or JSON file, then populate your `<select>` elements dyna
 ```html
 <select id="state"></select>
 <select id="lga"></select>
-<script src="nigeria-states-lgas.js"></script>
+<script>
+    let lga=document.getElementById("lga");
+    lga.disabled=true;
+    let state=document.getElementById("state");
+   
+    
+    let y={};
+    fetch("nigeria-state-lga.json")
+    .then(response=>response.json())
+    .then(data=>{
+        y=data;
+        
+
+ //populate the state
+    Object.keys(y).forEach(function (index){
+    let ct=document.createElement("option");
+    
+    ct.text=index;
+    ct.value=index;
+    state.add(ct);
+    
+          
+    });
+     });
+    
+    
+  //populate the lga
+    state.addEventListener("change",() =>{
+    
+    let selectedState=state.value;
+    console.log(selectedState);
+   
+   lga.disabled=false;
+   lga.innerHTML="";
+   
+  if(y[selectedState]==undefined){
+  lga.disabled=true;
+      lga.innerHTML='<option value="">--Select Lga--</option>';
+  }else{
+  y[selectedState].sort();
+       y[selectedState].forEach(function (index){
+    let ctt=document.createElement("option");
+    ctt.text=index;
+    ctt.value=index;
+    lga.add(ctt);
+     
+    });
+    
+    }
+    
+   })
+    
+    
+</script>
