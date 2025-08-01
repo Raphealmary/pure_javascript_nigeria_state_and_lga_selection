@@ -16,8 +16,6 @@ Include the JavaScript or JSON file, then populate your `<select>` elements dyna
 ## 📂 Formats
 
 - JSON
-- JavaScript
-- PHP Array
 
 ## ✅ Example
 
