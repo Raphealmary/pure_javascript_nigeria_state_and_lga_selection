@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nigeria State and lga</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    
+    <section>
+        
+        <div>
+           <select id="state">
+  <option value="">--Select State--</option>
+</select>
+    </div>
+ 
+<div>
+<select id="lga">
+ 
+   <option value="">--Select Lga--</option>
+</select>
+</div>
+
+    </section>
+    
+
+<script>
+    let lga=document.getElementById("lga");
+    lga.disabled=true;
+    let state=document.getElementById("state");
+   
+    
+    let y={};
+    fetch("nigeria-state-lga.json")
+    .then(response=>response.json())
+    .then(data=>{
+        y=data;
+        
+
+ //populate the state
+    Object.keys(y).forEach(function (index){
+    let ct=document.createElement("option");
+    
+    ct.text=index;
+    ct.value=index;
+    state.add(ct);
+    
+          
+    });
+     });
+    
+    
+  //populate the lga
+    state.addEventListener("change",() =>{
+    
+    let selectedState=state.value;
+    console.log(selectedState);
+   
+   lga.disabled=false;
+   lga.innerHTML="";
+   
+  if(y[selectedState]==undefined){
+  lga.disabled=true;
+      lga.innerHTML='<option value="">--Select Lga--</option>';
+  }else{
+  y[selectedState].sort();
+       y[selectedState].forEach(function (index){
+    let ctt=document.createElement("option");
+    ctt.text=index;
+    ctt.value=index;
+    lga.add(ctt);
+        
+      
+      
+          
+      
+    });
+    
+    }
+    
+    
+    
+   })
+    
+    
+</script>
+</body>
+</html>
